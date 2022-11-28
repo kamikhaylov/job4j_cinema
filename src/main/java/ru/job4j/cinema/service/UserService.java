@@ -4,8 +4,8 @@ import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import ru.job4j.cinema.common.model.User;
-import ru.job4j.cinema.persistence.UserStore;
+import ru.job4j.cinema.model.User;
+import ru.job4j.cinema.repository.UserStore;
 
 import java.util.Optional;
 

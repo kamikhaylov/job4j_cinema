@@ -1,4 +1,4 @@
-package ru.job4j.cinema.persistence;
+package ru.job4j.cinema.repository;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.jupiter.api.AfterEach;
@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cinema.Main;
-import ru.job4j.cinema.common.model.Session;
-import ru.job4j.cinema.common.model.Ticket;
-import ru.job4j.cinema.common.model.User;
+import ru.job4j.cinema.model.Session;
+import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.model.User;
 
 import java.io.IOException;
 import java.nio.file.Files;

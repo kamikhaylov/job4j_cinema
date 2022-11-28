@@ -1,4 +1,4 @@
-package ru.job4j.cinema.controllers;
+package ru.job4j.cinema.controller;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -7,11 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.verification.VerificationMode;
 import org.springframework.ui.Model;
-import ru.job4j.cinema.common.model.Session;
-import ru.job4j.cinema.common.model.Ticket;
-import ru.job4j.cinema.common.model.User;
+import ru.job4j.cinema.model.Session;
+import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.SessionService;
 import ru.job4j.cinema.service.TicketService;
 

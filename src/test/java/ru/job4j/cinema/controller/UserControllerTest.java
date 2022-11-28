@@ -1,4 +1,4 @@
-package ru.job4j.cinema.controllers;
+package ru.job4j.cinema.controller;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
-import ru.job4j.cinema.common.model.User;
+import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

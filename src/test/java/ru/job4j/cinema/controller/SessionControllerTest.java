@@ -1,4 +1,4 @@
-package ru.job4j.cinema.controllers;
+package ru.job4j.cinema.controller;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import ru.job4j.cinema.common.model.Session;
+import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.service.SessionService;
 
 import javax.servlet.http.HttpSession;

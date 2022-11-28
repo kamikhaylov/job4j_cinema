@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
-import ru.job4j.cinema.common.model.User;
+import ru.job4j.cinema.model.User;
 
 import javax.servlet.http.HttpSession;
 

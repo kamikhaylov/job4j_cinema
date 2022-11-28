@@ -3,7 +3,7 @@ package ru.job4j.cinema.common.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
-import ru.job4j.cinema.common.model.User;
+import ru.job4j.cinema.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

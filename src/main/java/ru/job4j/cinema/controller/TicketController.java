@@ -1,4 +1,4 @@
-package ru.job4j.cinema.controllers;
+package ru.job4j.cinema.controller;
 
 import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.job4j.cinema.common.model.Session;
-import ru.job4j.cinema.common.model.Ticket;
-import ru.job4j.cinema.common.model.User;
+import ru.job4j.cinema.model.Session;
+import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.service.SessionService;
 import ru.job4j.cinema.service.TicketService;

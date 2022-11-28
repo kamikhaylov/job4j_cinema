@@ -1,12 +1,12 @@
-package ru.job4j.cinema.persistence;
+package ru.job4j.cinema.repository;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cinema.common.model.Session;
-import ru.job4j.cinema.common.model.Ticket;
-import ru.job4j.cinema.common.model.User;
+import ru.job4j.cinema.model.Session;
+import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
