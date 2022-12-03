@@ -35,8 +35,8 @@ class TicketStoreTest {
     @AfterEach
     public void after() throws SQLException {
         try (PreparedStatement st = pool.getConnection().prepareStatement(
-                "DELETE FROM ticket;"
-                        + "ALTER TABLE ticket ALTER COLUMN id RESTART WITH 1;"
+                "DELETE FROM tickets;"
+                        + "ALTER TABLE tickets ALTER COLUMN id RESTART WITH 1;"
                         + "DELETE FROM sessions;"
                         + "ALTER TABLE sessions ALTER COLUMN id RESTART WITH 1;"
                         + "DELETE FROM users;"

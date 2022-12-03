@@ -41,7 +41,7 @@ public class TicketStore {
         List<Integer> rows = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "SELECT pos_row FROM ticket "
+                     "SELECT pos_row FROM tickets "
                              + "WHERE session_id = ? "
                              + "GROUP BY pos_row "
                              + "HAVING COUNT(cell) = ?")
@@ -74,7 +74,7 @@ public class TicketStore {
         List<Integer> cells = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "SELECT cell FROM ticket "
+                     "SELECT cell FROM tickets "
                              + "WHERE session_id = ? AND pos_row = ?")
         ) {
             ps.setInt(1, session.getId());
@@ -109,7 +109,7 @@ public class TicketStore {
 
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "INSERT INTO ticket(session_id, pos_row, cell, user_id) "
+                     "INSERT INTO tickets(session_id, pos_row, cell, user_id) "
                              + "VALUES (?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
