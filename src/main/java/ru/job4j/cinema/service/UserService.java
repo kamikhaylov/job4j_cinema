@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.repository.UserStore;
+import ru.job4j.cinema.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -17,9 +17,9 @@ import java.util.Optional;
 public class UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class.getName());
 
-    private final UserStore store;
+    private final UserRepository store;
 
-    public UserService(UserStore store) {
+    public UserService(UserRepository store) {
         this.store = store;
     }
 

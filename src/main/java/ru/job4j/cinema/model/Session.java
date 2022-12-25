@@ -1,6 +1,5 @@
 package ru.job4j.cinema.model;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -62,14 +61,13 @@ public class Session {
         }
         Session session = (Session) o;
         return id == session.id
-                && Objects.equals(name, session.name)
-                && Arrays.equals(poster, session.poster);
+                && Objects.equals(name, session.name);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(id, name);
-        result = 31 * result + Arrays.hashCode(poster);
+        result = 31 * result;
         return result;
     }
 

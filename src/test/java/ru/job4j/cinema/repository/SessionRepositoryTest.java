@@ -1,15 +1,15 @@
 package ru.job4j.cinema.repository;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.job4j.cinema.Main;
+import ru.job4j.cinema.config.DataSourceConfigH2;
 import ru.job4j.cinema.model.Session;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,14 +21,14 @@ import java.util.stream.Stream;
 /**
  * Тестрованиие работы с БД сеансов кинотеатра
  */
-class SessionStoreTest {
+class SessionRepositoryTest {
     private static final String POSTER_PATH = "./src/test/resources/image/image.png";
 
-    private static BasicDataSource pool;
+    private static DataSource pool;
 
     @BeforeEach
     public void before() {
-        pool = new Main().loadPool();
+        pool = new DataSourceConfigH2().loadPool();
     }
 
     @AfterEach
@@ -50,7 +50,7 @@ class SessionStoreTest {
     @ParameterizedTest
     @MethodSource("sessionProvider")
     public void whenCreateSession(Session session) {
-        SessionStore store = new SessionStore(pool);
+        SessionRepository store = new SessionRepository(pool);
 
         boolean addResult = store.add(session);
         Session sessionInDb = store.findById(session.getId());

@@ -1,11 +1,11 @@
 package ru.job4j.cinema.repository;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cinema.model.User;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,12 +17,12 @@ import java.util.Optional;
  * Работа с БД пользователей
  */
 @Repository
-public class UserStore {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserStore.class.getName());
+public class UserRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class.getName());
 
-    private final BasicDataSource pool;
+    private final DataSource pool;
 
-    public UserStore(BasicDataSource pool) {
+    public UserRepository(DataSource pool) {
         this.pool = pool;
     }
 

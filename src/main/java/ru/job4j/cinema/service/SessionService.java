@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Session;
-import ru.job4j.cinema.repository.SessionStore;
+import ru.job4j.cinema.repository.SessionRepository;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.List;
 public class SessionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SessionService.class.getName());
 
-    private final SessionStore sessionStore;
+    private final SessionRepository sessionRepository;
 
-    public SessionService(SessionStore sessionStore) {
-        this.sessionStore = sessionStore;
+    public SessionService(SessionRepository sessionRepository) {
+        this.sessionRepository = sessionRepository;
     }
 
     /**
@@ -30,7 +30,7 @@ public class SessionService {
      */
     public Collection<Session> findAll() {
         LOGGER.info("SessionService.findAll");
-        List<Session> sessions = sessionStore.findAll();
+        List<Session> sessions = sessionRepository.findAll();
         return sessions;
     }
 
@@ -41,7 +41,7 @@ public class SessionService {
      */
     public boolean add(Session session) {
         LOGGER.info("SessionService.add");
-        return sessionStore.add(session);
+        return sessionRepository.add(session);
     }
 
     /**
@@ -51,6 +51,6 @@ public class SessionService {
      */
     public Session findById(int id) {
         LOGGER.info("SessionService.findById");
-        return sessionStore.findById(id);
+        return sessionRepository.findById(id);
     }
 }

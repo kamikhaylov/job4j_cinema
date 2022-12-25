@@ -1,6 +1,5 @@
 package ru.job4j.cinema.repository;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,9 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.job4j.cinema.Main;
+import ru.job4j.cinema.config.DataSourceConfigH2;
 import ru.job4j.cinema.model.User;
 
+import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -20,15 +20,15 @@ import java.util.stream.Stream;
 /**
  * Тестрованиие работы с БД пользователей
  */
-class UserStoreTest {
+class UserRepositoryTest {
     private static final String EMAIL = "test@test.ru";
     private static final String PHONE = "123";
 
-    private static BasicDataSource pool;
+    private static DataSource pool;
 
     @BeforeEach
     public void before() {
-        pool = new Main().loadPool();
+        pool = new DataSourceConfigH2().loadPool();
     }
 
     @AfterEach
@@ -42,7 +42,7 @@ class UserStoreTest {
 
     @Test()
     public void whenCreateUser() {
-        UserStore store = new UserStore(pool);
+        UserRepository store = new UserRepository(pool);
         User user1 = new User(0, "user1", "test1@test.ru", "123");
         User user2 = new User(0, "user2", "test2@test.ru", "321");
 
@@ -63,7 +63,7 @@ class UserStoreTest {
 
     @Test()
     public void whenCreateUserThenFail() {
-        UserStore store = new UserStore(pool);
+        UserRepository store = new UserRepository(pool);
         User user1 = new User(0, "user1", EMAIL, PHONE);
         User user2 = new User(0, "user2", EMAIL, PHONE);
 
@@ -81,7 +81,7 @@ class UserStoreTest {
 
     @Test()
     public void whenLogin() {
-        UserStore store = new UserStore(pool);
+        UserRepository store = new UserRepository(pool);
         User user1 = new User(0, "user1", "test1@test.ru", "111");
         User user2 = new User(0, "user2", EMAIL, PHONE);
 
@@ -108,7 +108,7 @@ class UserStoreTest {
     @ParameterizedTest
     @MethodSource("loginProvider")
     public void whenLoginFail(String email, String phone) {
-        UserStore store = new UserStore(pool);
+        UserRepository store = new UserRepository(pool);
         User user = new User(0, "user", email, PHONE);
         store.add(user);
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.repository.TicketStore;
+import ru.job4j.cinema.repository.TicketRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,10 @@ public class TicketService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketService.class.getName());
     private static final int MAX_CELL_IN_ROW = 3;
 
-    private final TicketStore ticketStore;
+    private final TicketRepository ticketRepository;
 
-    public TicketService(TicketStore ticketStore) {
-        this.ticketStore = ticketStore;
+    public TicketService(TicketRepository ticketRepository) {
+        this.ticketRepository = ticketRepository;
     }
 
     /**
@@ -34,7 +34,7 @@ public class TicketService {
      * @return возвращает список свободных рядов
      */
     public List<Integer> getRows(Session session) {
-        List<Integer> busyRows = ticketStore.getBusyRows(session, MAX_CELL_IN_ROW);
+        List<Integer> busyRows = ticketRepository.getBusyRows(session, MAX_CELL_IN_ROW);
         List<Integer> rows = createRows();
         rows.removeAll(busyRows);
 
@@ -49,7 +49,7 @@ public class TicketService {
      * @return возвращает список свободных мест
      */
     public List<Integer> getCells(Session session, int row) {
-        List<Integer> busyCells = ticketStore.getBusyCells(session, row);
+        List<Integer> busyCells = ticketRepository.getBusyCells(session, row);
         List<Integer> cells = createCells();
         cells.removeAll(busyCells);
 
@@ -68,7 +68,7 @@ public class TicketService {
     public Optional<Ticket> createTicket(Session session, int row, int cell, User user) {
         LOGGER.info("TicketService.createTicket : " + session
                 + ", row : " + row + ", cell : " + cell + ", user : " + user);
-        return ticketStore.add(session, row, cell, user);
+        return ticketRepository.add(session, row, cell, user);
     }
 
     private List<Integer> createRows() {

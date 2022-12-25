@@ -1,13 +1,13 @@
 package ru.job4j.cinema.repository;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cinema.model.Session;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,11 +19,11 @@ import java.util.Objects;
  * Работа с БД сеансов кинотеатра
  */
 @Repository
-public class SessionStore {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SessionStore.class.getName());
-    private final BasicDataSource pool;
+public class SessionRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SessionRepository.class.getName());
+    private final DataSource pool;
 
-    public SessionStore(BasicDataSource pool) {
+    public SessionRepository(DataSource pool) {
         this.pool = pool;
     }
 

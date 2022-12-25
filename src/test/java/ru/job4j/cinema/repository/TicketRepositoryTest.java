@@ -1,15 +1,15 @@
 package ru.job4j.cinema.repository;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cinema.Main;
+import ru.job4j.cinema.config.DataSourceConfigH2;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.model.User;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,14 +22,14 @@ import java.util.Optional;
 /**
  * Тестрованиие работы с БД билетов
  */
-class TicketStoreTest {
+class TicketRepositoryTest {
     private static final String POSTER_PATH = "./src/test/resources/image/image.png";
 
-    private static BasicDataSource pool;
+    private static DataSource pool;
 
     @BeforeEach
     public void before() {
-        pool = new Main().loadPool();
+        pool = new DataSourceConfigH2().loadPool();
     }
 
     @AfterEach
@@ -47,16 +47,16 @@ class TicketStoreTest {
 
     @Test()
     public void whenTicket() throws IOException {
-        SessionStore sessionStore = new SessionStore(pool);
-        UserStore userStore = new UserStore(pool);
-        TicketStore ticketStore = new TicketStore(pool);
+        SessionRepository sessionRepository = new SessionRepository(pool);
+        UserRepository userRepository = new UserRepository(pool);
+        TicketRepository ticketRepository = new TicketRepository(pool);
 
         Session session = new Session(1, "Film", createPoster(POSTER_PATH));
         User user = new User(1, "user", "test@test.ru", "123");
 
-        userStore.add(user);
-        sessionStore.add(session);
-        Optional<Ticket> ticket = ticketStore.add(session, 1, 1, user);
+        userRepository.add(user);
+        sessionRepository.add(session);
+        Optional<Ticket> ticket = ticketRepository.add(session, 1, 1, user);
 
         Assertions.assertNotNull(ticket);
         Assertions.assertEquals(ticket.get().getId(), 1);
@@ -67,19 +67,19 @@ class TicketStoreTest {
 
     @Test()
     public void whenBusyCells() throws IOException {
-        SessionStore sessionStore = new SessionStore(pool);
-        UserStore userStore = new UserStore(pool);
-        TicketStore ticketStore = new TicketStore(pool);
+        SessionRepository sessionRepository = new SessionRepository(pool);
+        UserRepository userRepository = new UserRepository(pool);
+        TicketRepository ticketRepository = new TicketRepository(pool);
 
         Session session = new Session(1, "Film", createPoster(POSTER_PATH));
         User user = new User(1, "user", "test@test.ru", "123");
 
-        userStore.add(user);
-        sessionStore.add(session);
-        ticketStore.add(session, 1, 1, user);
-        ticketStore.add(session, 1, 2, user);
+        userRepository.add(user);
+        sessionRepository.add(session);
+        ticketRepository.add(session, 1, 1, user);
+        ticketRepository.add(session, 1, 2, user);
 
-        List<Integer> result = ticketStore.getBusyCells(session, 1);
+        List<Integer> result = ticketRepository.getBusyCells(session, 1);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result, new ArrayList<>(List.of(1, 2)));
@@ -87,19 +87,19 @@ class TicketStoreTest {
 
     @Test()
     public void whenBusyRows() throws IOException {
-        SessionStore sessionStore = new SessionStore(pool);
-        UserStore userStore = new UserStore(pool);
-        TicketStore ticketStore = new TicketStore(pool);
+        SessionRepository sessionRepository = new SessionRepository(pool);
+        UserRepository userRepository = new UserRepository(pool);
+        TicketRepository ticketRepository = new TicketRepository(pool);
 
         Session session = new Session(1, "Film", createPoster(POSTER_PATH));
         User user = new User(1, "user", "test@test.ru", "123");
 
-        userStore.add(user);
-        sessionStore.add(session);
-        ticketStore.add(session, 1, 1, user);
-        ticketStore.add(session, 1, 2, user);
+        userRepository.add(user);
+        sessionRepository.add(session);
+        ticketRepository.add(session, 1, 1, user);
+        ticketRepository.add(session, 1, 2, user);
 
-        List<Integer> result = ticketStore.getBusyRows(session, 2);
+        List<Integer> result = ticketRepository.getBusyRows(session, 2);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result, new ArrayList<>(List.of(1)));
