@@ -16,16 +16,16 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
     @Bean
-    public DataSource loadPool(@Value("${jdbc.driver}") String driver,
-                               @Value("${jdbc.url}") String url,
-                               @Value("${jdbc.username}") String username,
-                               @Value("${jdbc.password}") String password) {
+    public DataSource loadDataSource(@Value("${jdbc.driver}") String driver,
+                                     @Value("${jdbc.url}") String url,
+                                     @Value("${jdbc.username}") String username,
+                                     @Value("${jdbc.password}") String password) {
 
-        BasicDataSource pool = new BasicDataSource();
-        pool.setDriverClassName(driver);
-        pool.setUrl(url);
-        pool.setUsername(username);
-        pool.setPassword(password);
-        return pool;
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(driver);
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        return dataSource;
     }
 }

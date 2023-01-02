@@ -21,19 +21,19 @@ import java.util.stream.Stream;
 /**
  * Тестрованиие работы с БД сеансов кинотеатра
  */
-class SessionRepositoryTest {
+class CinemaSessionRepositoryTest {
     private static final String POSTER_PATH = "./src/test/resources/image/image.png";
 
-    private static DataSource pool;
+    private static DataSource dataSource;
 
     @BeforeEach
     public void before() {
-        pool = new DataSourceConfigH2().loadPool();
+        dataSource = new DataSourceConfigH2().loadDataSource();
     }
 
     @AfterEach
     public void after() throws SQLException {
-        try (PreparedStatement st = pool.getConnection().prepareStatement(
+        try (PreparedStatement st = dataSource.getConnection().prepareStatement(
                 "DELETE FROM sessions;"
                         + "ALTER TABLE sessions ALTER COLUMN id RESTART WITH 1;")) {
             st.execute();
@@ -50,7 +50,7 @@ class SessionRepositoryTest {
     @ParameterizedTest
     @MethodSource("sessionProvider")
     public void whenCreateSession(Session session) {
-        SessionRepository store = new SessionRepository(pool);
+        SessionRepository store = new CinemaSessionRepository(dataSource);
 
         boolean addResult = store.add(session);
         Session sessionInDb = store.findById(session.getId());

@@ -20,20 +20,20 @@ import java.util.stream.Stream;
 /**
  * Тестрованиие работы с БД пользователей
  */
-class UserRepositoryTest {
+class CinemaUserRepositoryTest {
     private static final String EMAIL = "test@test.ru";
     private static final String PHONE = "123";
 
-    private static DataSource pool;
+    private static DataSource dataSource;
 
     @BeforeEach
     public void before() {
-        pool = new DataSourceConfigH2().loadPool();
+        dataSource = new DataSourceConfigH2().loadDataSource();
     }
 
     @AfterEach
     public void after() throws SQLException {
-        try (PreparedStatement st = pool.getConnection().prepareStatement(
+        try (PreparedStatement st = dataSource.getConnection().prepareStatement(
                 "DELETE FROM users;"
                         + "ALTER TABLE users ALTER COLUMN id RESTART WITH 1;")) {
             st.execute();
@@ -42,7 +42,7 @@ class UserRepositoryTest {
 
     @Test()
     public void whenCreateUser() {
-        UserRepository store = new UserRepository(pool);
+        CinemaUserRepository store = new CinemaUserRepository(dataSource);
         User user1 = new User(0, "user1", "test1@test.ru", "123");
         User user2 = new User(0, "user2", "test2@test.ru", "321");
 
@@ -63,7 +63,7 @@ class UserRepositoryTest {
 
     @Test()
     public void whenCreateUserThenFail() {
-        UserRepository store = new UserRepository(pool);
+        CinemaUserRepository store = new CinemaUserRepository(dataSource);
         User user1 = new User(0, "user1", EMAIL, PHONE);
         User user2 = new User(0, "user2", EMAIL, PHONE);
 
@@ -81,7 +81,7 @@ class UserRepositoryTest {
 
     @Test()
     public void whenLogin() {
-        UserRepository store = new UserRepository(pool);
+        CinemaUserRepository store = new CinemaUserRepository(dataSource);
         User user1 = new User(0, "user1", "test1@test.ru", "111");
         User user2 = new User(0, "user2", EMAIL, PHONE);
 
@@ -108,7 +108,7 @@ class UserRepositoryTest {
     @ParameterizedTest
     @MethodSource("loginProvider")
     public void whenLoginFail(String email, String phone) {
-        UserRepository store = new UserRepository(pool);
+        CinemaUserRepository store = new CinemaUserRepository(dataSource);
         User user = new User(0, "user", email, PHONE);
         store.add(user);
 

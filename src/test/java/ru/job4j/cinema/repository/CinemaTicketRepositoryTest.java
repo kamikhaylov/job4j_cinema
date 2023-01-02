@@ -22,19 +22,19 @@ import java.util.Optional;
 /**
  * Тестрованиие работы с БД билетов
  */
-class TicketRepositoryTest {
+class CinemaTicketRepositoryTest {
     private static final String POSTER_PATH = "./src/test/resources/image/image.png";
 
-    private static DataSource pool;
+    private static DataSource dataSource;
 
     @BeforeEach
     public void before() {
-        pool = new DataSourceConfigH2().loadPool();
+        dataSource = new DataSourceConfigH2().loadDataSource();
     }
 
     @AfterEach
     public void after() throws SQLException {
-        try (PreparedStatement st = pool.getConnection().prepareStatement(
+        try (PreparedStatement st = dataSource.getConnection().prepareStatement(
                 "DELETE FROM tickets;"
                         + "ALTER TABLE tickets ALTER COLUMN id RESTART WITH 1;"
                         + "DELETE FROM sessions;"
@@ -47,9 +47,9 @@ class TicketRepositoryTest {
 
     @Test()
     public void whenTicket() throws IOException {
-        SessionRepository sessionRepository = new SessionRepository(pool);
-        UserRepository userRepository = new UserRepository(pool);
-        TicketRepository ticketRepository = new TicketRepository(pool);
+        CinemaSessionRepository sessionRepository = new CinemaSessionRepository(dataSource);
+        CinemaUserRepository userRepository = new CinemaUserRepository(dataSource);
+        CinemaTicketRepository ticketRepository = new CinemaTicketRepository(dataSource);
 
         Session session = new Session(1, "Film", createPoster(POSTER_PATH));
         User user = new User(1, "user", "test@test.ru", "123");
@@ -67,9 +67,9 @@ class TicketRepositoryTest {
 
     @Test()
     public void whenBusyCells() throws IOException {
-        SessionRepository sessionRepository = new SessionRepository(pool);
-        UserRepository userRepository = new UserRepository(pool);
-        TicketRepository ticketRepository = new TicketRepository(pool);
+        CinemaSessionRepository sessionRepository = new CinemaSessionRepository(dataSource);
+        CinemaUserRepository userRepository = new CinemaUserRepository(dataSource);
+        CinemaTicketRepository ticketRepository = new CinemaTicketRepository(dataSource);
 
         Session session = new Session(1, "Film", createPoster(POSTER_PATH));
         User user = new User(1, "user", "test@test.ru", "123");
@@ -87,9 +87,9 @@ class TicketRepositoryTest {
 
     @Test()
     public void whenBusyRows() throws IOException {
-        SessionRepository sessionRepository = new SessionRepository(pool);
-        UserRepository userRepository = new UserRepository(pool);
-        TicketRepository ticketRepository = new TicketRepository(pool);
+        CinemaSessionRepository sessionRepository = new CinemaSessionRepository(dataSource);
+        CinemaUserRepository userRepository = new CinemaUserRepository(dataSource);
+        CinemaTicketRepository ticketRepository = new CinemaTicketRepository(dataSource);
 
         Session session = new Session(1, "Film", createPoster(POSTER_PATH));
         User user = new User(1, "user", "test@test.ru", "123");

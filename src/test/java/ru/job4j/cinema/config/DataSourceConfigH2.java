@@ -13,14 +13,14 @@ import java.util.Properties;
  */
 public class DataSourceConfigH2 {
 
-    public BasicDataSource loadPool() {
+    public BasicDataSource loadDataSource() {
         Properties cfg = loadDbProperties();
-        BasicDataSource pool = new BasicDataSource();
-        pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
-        pool.setUrl(cfg.getProperty("jdbc.url"));
-        pool.setUsername(cfg.getProperty("jdbc.username"));
-        pool.setPassword(cfg.getProperty("jdbc.password"));
-        return pool;
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(cfg.getProperty("jdbc.driver"));
+        dataSource.setUrl(cfg.getProperty("jdbc.url"));
+        dataSource.setUsername(cfg.getProperty("jdbc.username"));
+        dataSource.setPassword(cfg.getProperty("jdbc.password"));
+        return dataSource;
     }
 
     private Properties loadDbProperties() {
