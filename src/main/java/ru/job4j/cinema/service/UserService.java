@@ -4,6 +4,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import ru.job4j.cinema.common.validation.CinemaValidated;
 import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.repository.UserRepository;
 
@@ -28,6 +29,7 @@ public class UserService {
      * @param user - пользователь
      * @return возвращает пользователя
      */
+    @CinemaValidated
     public Optional<User> add(User user) {
         LOGGER.info("UserService.add");
         return store.add(user);
@@ -38,6 +40,7 @@ public class UserService {
      * @param phone - номер телефон
      * @return возвращает пользователя
      */
+    @CinemaValidated
     public Optional<User> findUserByPhone(String phone) {
         LOGGER.info("UserService.findUserByPhone : " + phone);
         return store.findUserByPhone(phone);
