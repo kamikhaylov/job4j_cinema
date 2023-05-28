@@ -1,8 +1,6 @@
 package ru.job4j.cinema.controller;
 
 import net.jcip.annotations.ThreadSafe;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.cinema.common.logging.CinemaLogged;
+import ru.job4j.cinema.common.monitoring.CinemaMonitored;
 import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.UserService;
@@ -27,6 +26,9 @@ import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA12012;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA12020;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA12021;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA12022;
+import static ru.job4j.cinema.common.monitoring.CinemaMonitoringPoint.CINEMA_ADD_USER;
+import static ru.job4j.cinema.common.monitoring.CinemaMonitoringPoint.CINEMA_LOGIN;
+import static ru.job4j.cinema.common.monitoring.CinemaMonitoringPoint.CINEMA_USER_REGISTRATION;
 
 /**
  * Контроллер пользователей
@@ -34,8 +36,6 @@ import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA12022;
 @ThreadSafe
 @Controller
 public class UserController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class.getName());
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -49,8 +49,8 @@ public class UserController {
      */
     @GetMapping("/formAddUser")
     @CinemaLogged(start = CINEMA12000, success = CINEMA12001, fail = CINEMA12002)
+    @CinemaMonitored(value = CINEMA_ADD_USER)
     public String addUser(Model model) {
-        LOGGER.info("UserController.addUser");
         model.addAttribute("user", new User(0, "", "", ""));
         return "addUser";
     }
@@ -63,6 +63,7 @@ public class UserController {
      */
     @PostMapping("/registration")
     @CinemaLogged(start = CINEMA12010, success = CINEMA12011, fail = CINEMA12012)
+    @CinemaMonitored(value = CINEMA_USER_REGISTRATION)
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> regUser = userService.add(user);
         if (regUser.isEmpty()) {
@@ -79,7 +80,6 @@ public class UserController {
      */
     @GetMapping("/userSuccess")
     public String userSuccess(@ModelAttribute User user) {
-        LOGGER.info("UserController.success");
         return "userSuccess";
     }
 
@@ -90,7 +90,6 @@ public class UserController {
      */
     @GetMapping("/userFail")
     public String userFail(@ModelAttribute User user) {
-        LOGGER.info("UserController.fail");
         return "userFail";
     }
 
@@ -103,7 +102,6 @@ public class UserController {
     @GetMapping("/loginPage")
     public String loginPage(Model model,
                             @RequestParam(name = "fail", required = false) Boolean fail) {
-        LOGGER.info("UserController.loginPage");
         model.addAttribute("fail", fail != null);
         return "login";
     }
@@ -116,6 +114,7 @@ public class UserController {
      */
     @PostMapping("/login")
     @CinemaLogged(start = CINEMA12020, success = CINEMA12021, fail = CINEMA12022)
+    @CinemaMonitored(value = CINEMA_LOGIN)
     public String login(@ModelAttribute User user, HttpServletRequest req) {
         Optional<User> userDb = userService.findUserByPhone(user.getPhone());
         if (userDb.isEmpty()) {
