@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.cinema.service.LoggerService;
 
 /**
- * Фабрика логгера кинотеатра.
+ * Фабрика логера кинотеатра.
  */
 public class CinemaLoggerFactory {
 

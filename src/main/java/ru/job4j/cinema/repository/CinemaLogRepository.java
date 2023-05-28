@@ -64,7 +64,7 @@ public class CinemaLogRepository implements LogRepository {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    logs.add(createSession(it));
+                    logs.add(createLog(it));
                 }
             }
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public class CinemaLogRepository implements LogRepository {
         }
     }
 
-    private Log createSession(ResultSet it) throws SQLException {
+    private Log createLog(ResultSet it) throws SQLException {
         return new Log(
                 it.getInt("id"),
                 it.getString("level"),
