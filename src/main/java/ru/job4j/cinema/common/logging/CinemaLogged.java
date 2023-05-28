@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Аннотация для логирования результата выполнения сервиса кнотеатра.
+ * Аннотация для логирования результата выполнения сервиса кинотеатра.
  */
 @Target(value = ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)

@@ -18,18 +18,23 @@ public class CinemaLogger<T extends LogEvent> {
         this.loggerService = loggerService;
     }
 
+    /**
+     * Логирует события уровня INFO.
+     */
     public void info(T event) {
         if (logger.isInfoEnabled()) {
             try {
                 logger.info(event.toString());
                 loggerService.add(INFO, event.toString(), logger.getName());
             } catch (Exception exc) {
-                logger.error(exc.getMessage());
-                loggerService.add(ERROR, event.toString() + "." + exc.getMessage(), logger.getName());
+                error(event, exc);
             }
         }
     }
 
+    /**
+     * Логирует события уровня ERROR.
+     */
     public void error(T event, Throwable throwable) {
         logger.error(event.toString(), throwable);
         loggerService.add(ERROR, event.toString() + "." + throwable.getMessage(), logger.getName());
