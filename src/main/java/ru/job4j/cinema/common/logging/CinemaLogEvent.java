@@ -37,7 +37,6 @@ public enum CinemaLogEvent implements LogEvent {
     CINEMA12021("Успешный ответ сервиса авторизации"),
     CINEMA12022("Ошибка в ответе сервиса авторизации");
 
-
     private final String title;
 
     CinemaLogEvent(String title) {
@@ -55,7 +54,7 @@ public enum CinemaLogEvent implements LogEvent {
     }
 
     @Override
-    public String getMessage() {
-        return title;
+    public String toString() {
+        return getCode() + "." + getTitle();
     }
 }

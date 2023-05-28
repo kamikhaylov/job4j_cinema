@@ -47,9 +47,7 @@ class CinemaLoggingAspectTest {
 
         Assertions.assertNotNull(logs);
         Assertions.assertEquals(2, logs.size());
-        Assertions.assertEquals(CINEMA12000.getCode() + "." + CINEMA12000.getMessage(),
-                logs.get(0).getMessage());
-        Assertions.assertEquals(CINEMA12001.getCode() + "." + CINEMA12001.getMessage(),
-                logs.get(1).getMessage());
+        Assertions.assertEquals(CINEMA12000.toString(), logs.get(0).getMessage());
+        Assertions.assertEquals(CINEMA12001.toString(), logs.get(1).getMessage());
     }
 }

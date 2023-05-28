@@ -16,10 +16,4 @@ public interface LogEvent {
      * @return заголовок события
      */
     String getTitle();
-
-    /**
-     * Текст сообщения.
-     * @return текст сообщения
-     */
-    String getMessage();
 }

@@ -19,25 +19,19 @@ public class CinemaLogger<T extends LogEvent> {
     }
 
     public void info(T event) {
-        String message = createMessage(event);
         if (logger.isInfoEnabled()) {
             try {
-                logger.info(message);
-                loggerService.add(INFO, message, logger.getName());
+                logger.info(event.toString());
+                loggerService.add(INFO, event.toString(), logger.getName());
             } catch (Exception exc) {
                 logger.error(exc.getMessage());
-                loggerService.add(ERROR, message + "." + exc.getMessage(), logger.getName());
+                loggerService.add(ERROR, event.toString() + "." + exc.getMessage(), logger.getName());
             }
         }
     }
 
     public void error(T event, Throwable throwable) {
-        String message = createMessage(event);
-        logger.error(message, throwable);
-        loggerService.add(ERROR, message + "." + throwable.getMessage(), logger.getName());
-    }
-
-    private String createMessage(T event) {
-        return event.getCode() + "." + event.getMessage();
+        logger.error(event.toString(), throwable);
+        loggerService.add(ERROR, event.toString() + "." + throwable.getMessage(), logger.getName());
     }
 }

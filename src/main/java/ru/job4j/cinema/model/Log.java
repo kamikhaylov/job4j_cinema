@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * Модель билета
+ * Модель лога
  */
 @Data
 @NoArgsConstructor
