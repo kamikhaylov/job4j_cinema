@@ -16,14 +16,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ru.job4j.cinema.common.logging.CinemaLogged;
+import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.service.SessionService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10000;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10001;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10002;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10020;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10021;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10022;
 
 /**
  * Контроллер сеансов кинотеатра
@@ -46,9 +54,8 @@ public class SessionController {
      * @return возвращает страницу сеансов кинотеатра
      */
     @GetMapping("/sessions")
+    @CinemaLogged(start = CINEMA10000, success = CINEMA10001, fail = CINEMA10002)
     public String sessions(Model model, HttpSession httpSession) {
-        LOGGER.info("SessionController.sessions");
-
         User user = UserSession.getUser(model, httpSession);
         List<Session> list = (List<Session>) sessionService.findAll();
         for (Session session : list) {
@@ -67,8 +74,6 @@ public class SessionController {
      */
     @GetMapping("/formAddSession")
     public String addSession(Model model, HttpSession httpSession) {
-        LOGGER.info("SessionController.addSession");
-
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("session", new Session(0, null, null));
         model.addAttribute("user", user);
@@ -81,6 +86,7 @@ public class SessionController {
      * @return возвращает страницу сеансов кинотеатра
      */
     @PostMapping("/createSession")
+    @CinemaLogged(start = CINEMA10020, success = CINEMA10021, fail = CINEMA10022)
     public String createSession(@ModelAttribute Session session,
                                   @RequestParam("file") MultipartFile file) throws IOException {
         LOGGER.info("SessionController.createSession : name : " + session.getName()

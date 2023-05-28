@@ -9,15 +9,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.job4j.cinema.common.logging.CinemaLogged;
+import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.service.SessionService;
 import ru.job4j.cinema.service.TicketService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
+
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11000;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11001;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11002;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11010;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11011;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11012;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11020;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11021;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA11022;
 
 /**
  * Контроллер билетов
@@ -41,6 +52,7 @@ public class TicketController {
      * @return возвращает страницу выбора ряд
      */
     @GetMapping("/row/{sessionId}")
+    @CinemaLogged(start = CINEMA11000, success = CINEMA11001, fail = CINEMA11002)
     public String formRow(Model model, @PathVariable("sessionId") int id, HttpSession httpSession) {
         LOGGER.info("SessionController.formRow : " + id);
 
@@ -59,6 +71,7 @@ public class TicketController {
      * @return возвращает страницу выбора места
      */
     @GetMapping("/cell")
+    @CinemaLogged(start = CINEMA11010, success = CINEMA11011, fail = CINEMA11012)
     public String formCell(Model model, @RequestParam("row.id") int row, HttpSession httpSession) {
         LOGGER.info("SessionController.formCell : " + row);
 
@@ -79,6 +92,7 @@ public class TicketController {
      * @return возвращает страницу с результатом операции
      */
     @PostMapping("/addTicket")
+    @CinemaLogged(start = CINEMA11020, success = CINEMA11021, fail = CINEMA11022)
     public String createTicket(Model model, @RequestParam("cell.id") int cell,
                                HttpSession httpSession) {
         LOGGER.info("SessionController.addTicket : " + cell);
