@@ -16,6 +16,12 @@ public interface LogRepository {
     void add(String level, String message, String className);
 
     /**
+     * Добавление лога.
+     * @param log - лог
+     */
+    void add(Log log);
+
+    /**
      * Поиск всех логов.
      * @return возвращает логи
      */

@@ -53,6 +53,29 @@ public class CinemaLogRepository implements LogRepository {
     }
 
     /**
+     * Добавление лога.
+     * @param log - лог
+     */
+    @Override
+    public void add(Log log) {
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps =  cn.prepareStatement(
+                     "INSERT INTO logs(level, created, message, class_name, trace) "
+                             + "VALUES (?, ?, ?, ?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, log.getLevel());
+            ps.setTimestamp(2, Timestamp.valueOf(log.getCreated()));
+            ps.setString(3, log.getMessage());
+            ps.setString(4, log.getClassName());
+            ps.setString(5, log.getTrace());
+            ps.execute();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+    /**
      * Поиск всех логов
      * @return возвращает логи
      */
@@ -93,7 +116,8 @@ public class CinemaLogRepository implements LogRepository {
                 it.getString("level"),
                 it.getTimestamp("created").toLocalDateTime(),
                 it.getString("message"),
-                it.getString("class_name")
+                it.getString("class_name"),
+                it.getString("trace")
         );
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cinema.common.identification.RoleIdentified;
 import ru.job4j.cinema.common.logging.CinemaLogged;
 import ru.job4j.cinema.common.monitoring.CinemaMonitored;
+import ru.job4j.cinema.common.tracing.TraceableException;
 import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.User;
@@ -30,6 +31,7 @@ import static ru.job4j.cinema.common.identification.Roles.ADMIN;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10000;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10001;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10002;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10003;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10020;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10021;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10022;
@@ -100,6 +102,7 @@ public class SessionController {
      * @param id - идентификатор сеанса кинотеатра
      * @return возвращает постер
      */
+    @TraceableException(event = CINEMA10003)
     @GetMapping("/poster/{id}")
     public ResponseEntity<Resource> download(@PathVariable("id") Integer id) {
         Session session = sessionService.findById(id);

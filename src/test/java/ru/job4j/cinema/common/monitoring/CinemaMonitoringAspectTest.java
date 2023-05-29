@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import ru.job4j.cinema.AppTest;
 import ru.job4j.cinema.controller.UserController;
 import ru.job4j.cinema.model.Metric;
+import ru.job4j.cinema.repository.LogRepository;
 import ru.job4j.cinema.repository.MonitoringRepository;
 
 import java.util.List;
@@ -33,12 +35,17 @@ class CinemaMonitoringAspectTest {
     @Autowired
     private MonitoringRepository monitoringRepository;
 
+    @Autowired
+    private LogRepository logRepository;
+
     @Mock
     private Model model;
 
     @BeforeEach
     public void before() {
         monitoringRepository.clear();
+        logRepository.clear();
+        Mockito.reset(model);
     }
 
     @Test

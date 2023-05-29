@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static ru.job4j.cinema.common.identification.Roles.ADMIN;
 
 /**
- * Тестирование аспека идентификации ролей
+ * Тестирование аспетка идентификации ролей
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { AppTest.class })

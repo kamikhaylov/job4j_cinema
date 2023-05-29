@@ -23,4 +23,6 @@ public class Log {
     private String message;
     /** Имя класса */
     private String className;
+    /** Трассировка */
+    private String trace;
 }

@@ -2,6 +2,7 @@ package ru.job4j.cinema.service;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
+import ru.job4j.cinema.model.Log;
 import ru.job4j.cinema.repository.LogRepository;
 
 /**
@@ -22,5 +23,13 @@ public class LoggerService {
      */
     public void add(String level, String message, String className) {
         logRepository.add(level, message, className);
+    }
+
+    /**
+     * Добавление лога.
+     * @param log - лог
+     */
+    public void add(Log log) {
+        logRepository.add(log);
     }
 }
