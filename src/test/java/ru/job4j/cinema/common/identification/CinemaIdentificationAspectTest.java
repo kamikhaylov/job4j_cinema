@@ -78,7 +78,7 @@ class CinemaIdentificationAspectTest {
     }
 
     /**
-     * Если у пользователя роль admin, то доступно добавление киносенсов
+     * Если у пользователя роль admin, то доступно добавление киносеансов
      */
     @Test
     public void whenAddSessionThenAddSession() {

@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface Validator {
 
     /**
-     * Валидция входных параметров при регистрации пользователя
+     * Валидация входных параметров при регистрации пользователя
      * @param jp - метод
      * @param user - пользователь
      * @return возвращает пользователя
@@ -19,7 +19,7 @@ public interface Validator {
     Optional<User> validate(ProceedingJoinPoint jp, User user) throws Throwable;
 
     /**
-     * Валидция входных параметров при авторизации пользователя по телефону
+     * Валидация входных параметров при авторизации пользователя по телефону
      * @param jp - метод
      * @param phone - номер телефона пользователь
      * @return возвращает пользователя

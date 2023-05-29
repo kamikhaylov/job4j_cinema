@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import static ru.job4j.cinema.common.identification.Roles.USER;
 
-
 /**
  * Сервис пользователей
  */
