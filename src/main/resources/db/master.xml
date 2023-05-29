@@ -12,4 +12,5 @@
     <include file="scripts/003_ddl_create_table_tickets.sql" relativeToChangelogFile="true"/>
     <include file="scripts/004_ddl_create_table_logs.sql" relativeToChangelogFile="true"/>
     <include file="scripts/005_ddl_create_table_metrics.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/006_ddl_create_table_roles.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -44,7 +44,8 @@ class UserValidatorAspectTest {
     public void after() throws SQLException {
         try (PreparedStatement st = dataSource.getConnection().prepareStatement(
                 "DELETE FROM users;"
-                        + "ALTER TABLE users ALTER COLUMN id RESTART WITH 1;")) {
+                        + "ALTER TABLE users ALTER COLUMN id RESTART WITH 1;"
+                        + "DELETE FROM roles;")) {
             st.execute();
         }
     }

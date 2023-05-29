@@ -18,6 +18,6 @@ public @interface CinemaLogged {
     /** Успешное завершение */
     CinemaLogEvent success();
 
-    /** Ошибкаа в ответе сервиса */
+    /** Ошибка в ответе сервиса */
     CinemaLogEvent fail();
 }
