@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import ru.job4j.cinema.service.LoggerService;
 
 /**
- * Аспект обработки результата выполнения сервиса: логирование и формирование ответа.
+ * Аспект обработки результата выполнения сервиса: логирование.
  */
 @Aspect
 @Order(10)
