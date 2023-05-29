@@ -20,7 +20,7 @@ import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA12000;
 import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA12001;
 
 /**
- * Тестирование аспека Журналирования сервисов
+ * Тестирование аспекта Журналирования сервисов
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { AppTest.class })

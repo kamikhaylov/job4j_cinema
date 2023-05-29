@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
- * Тестирование аспека валидатора
+ * Тестирование аспекта валидатора
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { AppTest.class })

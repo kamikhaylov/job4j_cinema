@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static ru.job4j.cinema.common.monitoring.CinemaMonitoringPoint.CINEMA_ADD_USER;
 
 /**
- * Тестирование аспека мониторинга
+ * Тестирование аспекта мониторинга
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { AppTest.class })
