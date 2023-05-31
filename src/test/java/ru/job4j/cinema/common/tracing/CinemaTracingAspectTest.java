@@ -17,7 +17,6 @@ import ru.job4j.cinema.model.Log;
 import ru.job4j.cinema.repository.LogRepository;
 import ru.job4j.cinema.service.SessionService;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
