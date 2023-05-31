@@ -46,7 +46,7 @@ class CinemaTracingAspectTest {
     }
 
     @AfterEach
-    public void after() throws SQLException {
+    public void after() {
         Mockito.reset(sessionService);
     }
 
