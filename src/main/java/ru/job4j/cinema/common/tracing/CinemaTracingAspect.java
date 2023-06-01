@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import ru.job4j.cinema.common.logging.CinemaLogger;
 import ru.job4j.cinema.common.logging.CinemaLoggerFactory;
 import ru.job4j.cinema.common.logging.LogEvent;
-import ru.job4j.cinema.common.validation.UserRequestValidator;
 import ru.job4j.cinema.service.LoggerService;
 
 /**
@@ -22,7 +21,7 @@ public class CinemaTracingAspect {
     private final CinemaLogger<LogEvent> logger;
 
     public CinemaTracingAspect(@Qualifier("loggerService") LoggerService loggerService) {
-        logger = CinemaLoggerFactory.getLogger(UserRequestValidator.class, loggerService);
+        logger = CinemaLoggerFactory.getLogger(CinemaTracingAspect.class, loggerService);
     }
 
     @Pointcut("execution(public * ru.job4j.cinema.controller..*Controller*.*(..))")
