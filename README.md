@@ -79,5 +79,5 @@ kanmikhaylov@gmail.com
 
 [actions-image]: https://github.com/kamikhaylov/job4j_cinema/actions/workflows/maven.yml/badge.svg
 [actions-url]: https://github.com/kamikhaylov/job4j_cinema/actions/workflows/maven.yml
-[codecov-image]: https://codecov.io/gh/kamikhaylov/job4j_cinema/graph/badge.svg?token=
+[codecov-image]: https://codecov.io/gh/kamikhaylov/job4j_cinema/graph/badge.svg?token=I7VBVSNW7W
 [codecov-url]: https://codecov.io/gh/kamikhaylov/job4j_cinema
