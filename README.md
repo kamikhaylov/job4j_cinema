@@ -1,6 +1,9 @@
 # job4j_cinema
 Проект "Кинотеатр"
 
+[![github actions][actions-image]][actions-url]
+[![coverage][codecov-image]][codecov-url]
+
 Веб приложение на языке Java с библиотекой Spring boot.
 
 Сайт по покупке билетов в кинотеатр.
@@ -37,6 +40,10 @@
 - Запустить приложение из папки target, выполнив команду: `java -jar job4j_cinema-1.0-SNAPSHOT.jar`
 - Перейти в браузере по ссылке `http://localhost:8080/session`
 
+### Таблицы PostgreSQL DB
+Таблицы базы данных написаны с помощью Liquibase. Схема БД:
+![diagram-db.png](readme/images/diagram-db.png)
+
 ### Главная страница, форма с выбором фильма
 ![sessions.png](readme/images/sessions.png)
 
@@ -69,3 +76,8 @@
 
 ### Контакты
 kanmikhaylov@gmail.com
+
+[actions-image]: https://github.com/kamikhaylov/job4j_cinema/actions/workflows/maven.yml/badge.svg
+[actions-url]: https://github.com/kamikhaylov/job4j_cinema/actions/workflows/maven.yml
+[codecov-image]: https://codecov.io/gh/kamikhaylov/job4j_cinema/graph/badge.svg?token=
+[codecov-url]: https://codecov.io/gh/kamikhaylov/job4j_cinema
