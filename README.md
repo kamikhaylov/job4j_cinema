@@ -75,7 +75,8 @@
 ![loginFail.png](readme/images/loginFail.png)
 
 ### Контакты
-kanmikhaylov@gmail.com
+- kanmikhaylov@gmail.com
+- [telegram](https://t.me/KonstantinM1khaylov) 
 
 [actions-image]: https://github.com/kamikhaylov/job4j_cinema/actions/workflows/maven.yml/badge.svg
 [actions-url]: https://github.com/kamikhaylov/job4j_cinema/actions/workflows/maven.yml
