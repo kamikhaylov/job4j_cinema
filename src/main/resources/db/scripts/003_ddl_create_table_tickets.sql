@@ -10,7 +10,7 @@ ALTER TABLE tickets ADD CONSTRAINT ticket_unique UNIQUE (session_id, pos_row, ce
 
 COMMENT ON TABLE tickets IS 'Билеты';
 COMMENT ON COLUMN tickets.id IS 'Идентификатор билета';
-COMMENT ON COLUMN tickets.session_id IS 'Идентификаатор фильма';
+COMMENT ON COLUMN tickets.session_id IS 'Идентификатор фильма';
 COMMENT ON COLUMN tickets.pos_row IS 'Ряд';
 COMMENT ON COLUMN tickets.cell IS 'Место';
 COMMENT ON COLUMN tickets.user_id IS 'Идентификатор пользователя';

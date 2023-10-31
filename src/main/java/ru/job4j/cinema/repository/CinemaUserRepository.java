@@ -3,6 +3,7 @@ package ru.job4j.cinema.repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import ru.job4j.cinema.model.Role;
 import ru.job4j.cinema.model.User;
 
 import javax.sql.DataSource;
@@ -29,7 +30,7 @@ public class CinemaUserRepository implements UserRepository {
     }
 
     /**
-     * Добавлениие пользователя
+     * Добавление пользователя
      * @param user - пользователь
      * @return возвращает пользователя
      */
@@ -107,6 +108,86 @@ public class CinemaUserRepository implements UserRepository {
         }
         LOGGER.info("UserStore.findAll.result : " + users.toString());
         return users;
+    }
+
+    /**
+     * Добавление роли пользователя
+     * @param id - идентификатор пользователь
+     * @param name - название роли
+     * @return возвращает признак успеха
+     */
+    public boolean addRole(int id, String name) {
+        LOGGER.info("UserDBStore.addRole");
+
+        boolean result = false;
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps =  cn.prepareStatement(
+                     "INSERT INTO roles(id, name) "
+                             + "VALUES (?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.execute();
+            result = true;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    /**
+     * Обновление роли пользователя
+     * @param id - идентификатор пользователь
+     * @param name - название роли
+     * @return возвращает признак успеха
+     */
+    public boolean updateRole(int id, String name) {
+        LOGGER.info("UserDBStore.updateRole");
+
+        boolean result = false;
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps =  cn.prepareStatement(
+                     "UPDATE roles SET name = ? "
+                             + "WHERE id = ?",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            ps.execute();
+            result = true;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    /**
+     * Получение роли пользователя
+     * @param id - идентификатор пользователь
+     * @return возвращает признак успеха
+     */
+    public Role getRole(int id) {
+        LOGGER.info("UserDBStore.getRole");
+
+        Role role = new Role();
+        role.setId(id);
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM roles "
+                     + "WHERE id = ?")
+        ) {
+            ps.setInt(1, id);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    role.setName(it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+
+        LOGGER.info("UserDBStore.role : " + role);
+        return role;
     }
 
     private User createUser(ResultSet it) throws SQLException {

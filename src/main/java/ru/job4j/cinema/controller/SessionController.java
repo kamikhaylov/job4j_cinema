@@ -1,8 +1,6 @@
 package ru.job4j.cinema.controller;
 
 import net.jcip.annotations.ThreadSafe;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -16,14 +14,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ru.job4j.cinema.common.identification.RoleIdentified;
+import ru.job4j.cinema.common.logging.CinemaLogged;
+import ru.job4j.cinema.common.monitoring.CinemaMonitored;
+import ru.job4j.cinema.common.tracing.TraceableException;
+import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.common.util.UserSession;
 import ru.job4j.cinema.service.SessionService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+
+import static ru.job4j.cinema.common.identification.Roles.ADMIN;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10000;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10001;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10002;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10003;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10020;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10021;
+import static ru.job4j.cinema.common.logging.CinemaLogEvent.CINEMA10022;
+import static ru.job4j.cinema.common.monitoring.CinemaMonitoringPoint.CINEMA_CREATE_SESSION;
+import static ru.job4j.cinema.common.monitoring.CinemaMonitoringPoint.CINEMA_FIND_ALL_SESSIONS;
 
 /**
  * Контроллер сеансов кинотеатра
@@ -31,8 +44,6 @@ import java.util.List;
 @ThreadSafe
 @Controller
 public class SessionController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SessionController.class.getName());
-
     private final SessionService sessionService;
 
     public SessionController(SessionService sessionService) {
@@ -46,14 +57,11 @@ public class SessionController {
      * @return возвращает страницу сеансов кинотеатра
      */
     @GetMapping("/sessions")
+    @CinemaLogged(start = CINEMA10000, success = CINEMA10001, fail = CINEMA10002)
+    @CinemaMonitored(value = CINEMA_FIND_ALL_SESSIONS)
     public String sessions(Model model, HttpSession httpSession) {
-        LOGGER.info("SessionController.sessions");
-
         User user = UserSession.getUser(model, httpSession);
         List<Session> list = (List<Session>) sessionService.findAll();
-        for (Session session : list) {
-            LOGGER.info(session.toString());
-        }
         model.addAttribute("sessions", list);
         model.addAttribute("user", user);
         return "sessions";
@@ -66,9 +74,8 @@ public class SessionController {
      * @return возвращает страницу сеансов кинотеатра
      */
     @GetMapping("/formAddSession")
+    @RoleIdentified(role = ADMIN)
     public String addSession(Model model, HttpSession httpSession) {
-        LOGGER.info("SessionController.addSession");
-
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("session", new Session(0, null, null));
         model.addAttribute("user", user);
@@ -81,11 +88,10 @@ public class SessionController {
      * @return возвращает страницу сеансов кинотеатра
      */
     @PostMapping("/createSession")
+    @CinemaLogged(start = CINEMA10020, success = CINEMA10021, fail = CINEMA10022)
+    @CinemaMonitored(value = CINEMA_CREATE_SESSION)
     public String createSession(@ModelAttribute Session session,
                                   @RequestParam("file") MultipartFile file) throws IOException {
-        LOGGER.info("SessionController.createSession : name : " + session.getName()
-                + ", file.name : "  + file.getName());
-
         session.setPoster(file.getBytes());
         sessionService.add(session);
         return "redirect:/sessions";
@@ -96,10 +102,9 @@ public class SessionController {
      * @param id - идентификатор сеанса кинотеатра
      * @return возвращает постер
      */
+    @TraceableException(event = CINEMA10003)
     @GetMapping("/poster/{id}")
     public ResponseEntity<Resource> download(@PathVariable("id") Integer id) {
-        LOGGER.info("SessionController.download : " + id);
-
         Session session = sessionService.findById(id);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())

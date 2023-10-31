@@ -1,6 +1,9 @@
 # job4j_cinema
 Проект "Кинотеатр"
 
+[![github actions][actions-image]][actions-url]
+[![coverage][codecov-image]][codecov-url]
+
 Веб приложение на языке Java с библиотекой Spring boot.
 
 Сайт по покупке билетов в кинотеатр.
@@ -12,6 +15,13 @@
 
 ### Используемые технологии
 ![tech-1.png](readme/images/tech-1.png)
+
+### Сквозная функциональность реализована при помощи AOP Spring
+- Идентификация ролей пользователей
+- Журналирование сервисов
+- Обработка исключений 
+- Функция защиты: валидация входных данных пользователя
+- Мониторинг сервисов и времени выполнения событий
 
 ### Архитектура приложения трехслойное
 - Слой контроллеры
@@ -29,6 +39,10 @@
 - Собрать jar с приложением, выполнив команду `mvn install`
 - Запустить приложение из папки target, выполнив команду: `java -jar job4j_cinema-1.0-SNAPSHOT.jar`
 - Перейти в браузере по ссылке `http://localhost:8080/session`
+
+### Таблицы PostgreSQL DB
+Таблицы базы данных написаны с помощью Liquibase. Схема БД:
+![diagram-db.png](readme/images/diagram-db.png)
 
 ### Главная страница, форма с выбором фильма
 ![sessions.png](readme/images/sessions.png)
@@ -61,4 +75,10 @@
 ![loginFail.png](readme/images/loginFail.png)
 
 ### Контакты
-kanmikhaylov@gmail.com
+- kanmikhaylov@gmail.com
+- [telegram](https://t.me/KonstantinM1khaylov) 
+
+[actions-image]: https://github.com/kamikhaylov/job4j_cinema/actions/workflows/maven.yml/badge.svg
+[actions-url]: https://github.com/kamikhaylov/job4j_cinema/actions/workflows/maven.yml
+[codecov-image]: https://codecov.io/gh/kamikhaylov/job4j_cinema/graph/badge.svg?token=I7VBVSNW7W
+[codecov-url]: https://codecov.io/gh/kamikhaylov/job4j_cinema

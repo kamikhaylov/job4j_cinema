@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository;
 
+import ru.job4j.cinema.model.Role;
 import ru.job4j.cinema.model.User;
 
 import java.util.List;
@@ -29,4 +30,28 @@ public interface UserRepository {
      * @return возвращает список пользователей
      */
     List<User> findAll();
+
+    /**
+     * Добавление роли пользователя
+     * @param id - идентификатор пользователь
+     * @param name - название роли
+     * @return возвращает признак успеха
+     */
+    boolean addRole(int id, String name);
+
+
+    /**
+     * Обновление роли пользователя
+     * @param id - идентификатор пользователь
+     * @param name - название роли
+     * @return возвращает признак успеха
+     */
+    boolean updateRole(int id, String name);
+
+    /**
+     * Получение роли пользователя
+     * @param id - идентификатор пользователь
+     * @return возвращает признак успеха
+     */
+    Role getRole(int id);
 }
